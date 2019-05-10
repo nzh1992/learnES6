@@ -57,12 +57,55 @@
 // 那么在块级作用域中是否可声明函数？
 // ES5中规定，函数只能在顶层作用域和函数作用域中声明，不能在块级作用域中声明。
 // 但是各大浏览器并未遵循此约定，所以在块级作用域中声明的函数仍然生效，但是在严格模式(strict mode)下会报错。
+// 可以使用'use strict'，开启严格模式。
+
+// 那么在ES6中函数可以在块级作用域中声明么？
+function f() {
+    console.log("outside funciton.");
+}
+
+// 在chrome中会报错，其他浏览器的支持也各不相同，所以，尽量避免在块级作用域中声明函数。
+// (function() {
+//     if(false) {
+//         function f() {
+//             console.log("inside funciton.");
+//         }
+//     }
+//     f();
+// }());
 
 
+// 函数声明和函数表达式的区别？
+// 函数声明语句：function f() { //something to do }
+// 函数表达式：let f = function() { //something to do }
+// ES6中，块级作用域允许函数声明语句，但是必须在{}中声明。
 
 
+// do表达式（暂时是个提案）
+// do的作用是让块级作用域有一个返回值，可以让块以外的地方访问块内的变量。
+// var x = do { let x = 10; }
 
 
+// const
+// 声明一个常量，一旦声明无法被修改。这意味着必须在声明的时候进行初始化。
+// const声明的变量也是块级作用域。
+// 改变常量会引发TypeError异常，“TypeError: Assignment to constant variable.”
+// 需要注意：如果const声明了一个符合类型的变量a，a的地址是不变的，但是地址中的内容可以改变。比如array，dictionary。
 
 
+// 对象冻结
+// 使用const创建的对象只能保证一直指向这个对象，无法阻止其被修改。
+// 可以使用let obj = Object.freeze({});来创建对象。
+// 当给obj赋值时就会不起作用，而在严格模式下会报错(仅在严格模式下)。
 
+
+// 顶层对象属性
+// 在浏览器环境，顶层对象属性指的是window对象，在nodejs指的是global对象。
+// 在ES5中，顶层对象的属性等价于全局变量。
+// 在ES6中，顶层对象的属性和全局变量分离，不能再通过global.attr来获取了。
+// var g = 200;
+// console.log(g);
+// console.log(global.g);
+// let h = 300;
+// console.log(h);
+// console.log(global.h);
